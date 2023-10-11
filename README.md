@@ -5,7 +5,7 @@ DATABASE = MONGODB
 
 Expecting .env values:
   1. PORT = 5000
-  2. DB_URL = mongodb+srv://<username>:<password>@<DB-Instance>.b9m6yax.mongodb.net/<DB-Name>?retryWrites=true&w=majority
+  2. DB_URL = mongodb+srv://_username_:_password_@_DB-Instance_.b9m6yax.mongodb.net/_DB-Name_?retryWrites=true&w=majority
   3. EMAIL_USER = abcd@xxx.com
   4. EMAIL_PASSWORD = xxxxx
   5. JWT_SECRET_KEY = randomvalues
