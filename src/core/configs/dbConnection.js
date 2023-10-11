@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
+const { getDBUrl } = require("../../core/utils/envVariables")
 
-mongoose.connect(process.env.DB_URL, {
+mongoose.connect(getDBUrl(), {
     useNewUrlParser : true,
     useUnifiedTopology : true
 })

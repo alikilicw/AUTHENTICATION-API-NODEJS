@@ -41,11 +41,6 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
     unmodifiable: true,
-  },
-  phone_number: {
-    type: String,
-    unique: true,
-    trim: true,
   }
 });
 

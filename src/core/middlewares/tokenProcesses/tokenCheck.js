@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 const APIResponse = require("../../../core/utils/response")
 const { UserForVerification, User } = require("../../../core/models/user.model")
+const { getJWTSecretKey } = require("../../utils/envVariables")
 
 const tokenCheckforVerification = async (req, res, next) => {
     const headerToken = req.headers.authorization && req.headers.authorization.startsWith("Bearer ")
@@ -10,7 +11,7 @@ const tokenCheckforVerification = async (req, res, next) => {
 
     const token = req.headers.authorization.split(" ")[1]
 
-    await jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
+    await jwt.verify(token, getJWTSecretKey(), async (err, decoded) => {
         if (err) return new APIResponse(null, "Invalid token.", 401).negativeRes(res)
         
         const userInfo = await UserForVerification.findById(decoded.sub).select("_id personal_email")
@@ -30,7 +31,7 @@ const tokenCheck = async (req, res, next) => {
 
     const token = req.headers.authorization.split(" ")[1]
 
-    await jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
+    await jwt.verify(token, getJWTSecretKey(), async (err, decoded) => {
         
         if (err) {
             if (err.name === "TokenExpiredError") return new APIResponse(null, "Token expired.", 401).negativeRes(res)

@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken")
+const { getJWTSecretKey } = require("../../utils/envVariables")
 
 const createToken = async (user, expiresIn) => {
     payload = {
@@ -6,7 +7,7 @@ const createToken = async (user, expiresIn) => {
         personal_email : user.personal_email
     }
 
-    const token = await jwt.sign(payload, process.env.JWT_SECRET_KEY, {
+    const token = await jwt.sign(payload, getJWTSecretKey(), {
         algorithm : "HS512",
         expiresIn
     })

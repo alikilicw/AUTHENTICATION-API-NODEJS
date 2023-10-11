@@ -2,6 +2,9 @@ const { createToken } = require("../../core/middlewares/tokenProcesses/createTok
 const { User, UserForVerification } = require("../../core/models/user.model");
 const APIResponse = require("../../core/utils/response");
 const sendEmail = require("../../core/utils/sendMail");
+const { getEmailUser } = require("../../core/utils/envVariables")
+
+//Packages
 const crypto = require("crypto")
 const bcrypt = require("bcrypt")
 
@@ -26,7 +29,7 @@ const emailVerification = async (req, res) => {
         const verificationCode = crypto.randomInt(0, 10**4-1).toString().padStart(4, "0")
 
         await sendEmail({
-            from : "sozial_university@outlook.com",
+            from : getEmailUser(),
             to : personal_email,
             subject : "Email Verification",
             text : `That's your email verification code : ${verificationCode}`,
@@ -68,7 +71,7 @@ const emailVerification = async (req, res) => {
 
 const register = async (req, res) => {
     const {username, firstname, gender, lastname, password} = req.body
-    console.log(req.user);
+
     const {personal_email} = req.user
 
     var user_found = await User.findOne({username})
